@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.likeminded.apps.ivysaursworkout.MainActivity">
+
+    <EditText
+        android:id="@+id/bench_max"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter Bench Max (4x4)"
+        android:digits="0123456789"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/overhead_press_max"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter Overhead Press Max (4x4)"
+        android:digits="0123456789"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/squat_max"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter Squat Max (4x4)"
+        android:digits="0123456789"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/deadlift_max"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter Deadlift Max (4x4)"
+        android:digits="0123456789"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/barbell_row_max"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter Barbell Row Max (4x4)"
+        android:digits="0123456789"
+        android:inputType="number" />
+
+    <Button
+        android:text="Next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/max_submit_btn" />
+
+
+</LinearLayout>
