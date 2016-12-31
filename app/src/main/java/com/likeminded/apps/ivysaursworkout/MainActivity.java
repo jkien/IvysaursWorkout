@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
     public final static String MAX_DEADLIFT = "com.likeminded.apps.ivysaursworkout.MAX_DEADLIFT";
     public final static String MAX_BARBELLROWS = "com.likeminded.apps.ivysaursworkout.MAX_BARBELLROWS";
 
+
+
     public void init()
     {
         nextBtn = (Button)findViewById(R.id.max_submit_btn);

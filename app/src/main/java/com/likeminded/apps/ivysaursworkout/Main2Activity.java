@@ -11,6 +11,8 @@ public class Main2Activity extends AppCompatActivity {
     private TextView textView_bench_A;
     private String bench;
 
+    private final double benchIncrement = 10/3;
+
     public enum Week {
         A, B
     }
@@ -46,10 +48,15 @@ public class Main2Activity extends AppCompatActivity {
         textView_bench_A.setText(bench_text);
     }
 
-    public String setBench(int prevMax, Week week, Day day)
+    public String setBench(int prevWeight, Week week, Day day)
     {
         String reps = "";
         String weight = "";
+
+        double nextWeight = prevWeight + benchIncrement;
+
+        //round to nearest 5
+        nextWeight = 5*(Math.round(nextWeight/5));
 
         switch (week) {
             case A:
@@ -79,6 +86,8 @@ public class Main2Activity extends AppCompatActivity {
                 }
                 break;
         }
+
+        weight = Double.toString(nextWeight);
 
         return weight + " " + reps;
     }
