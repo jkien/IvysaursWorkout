@@ -6,8 +6,8 @@ package com.likeminded.apps.ivysaursworkout;
 
 public class UserModel {
 
-    private String ID;
-    private int maxBench, maxSquat, maxDeadlift, maxOverheadPress, maxBarbellRow;
+    private String ID, Week, Day;
+    private long MaxBench, MaxSquat, MaxDeadlift, MaxOverheadPress, MaxBarbellRow;
 
     public String getID() {
         return ID;
@@ -16,38 +16,52 @@ public class UserModel {
         this.ID = ID;
     }
 
-    public int getMaxBench() {
-        return maxBench;
+    public long getMaxBench() {
+        return MaxBench;
     }
-    public void setMaxBench(int bench) {
-        this.maxBench = bench;
-    }
-
-    public int getMaxSquat() {
-        return maxSquat;
-    }
-    public void setMaxSquat(int squat) {
-        this.maxSquat = squat;
+    public void setMaxBench(long bench) {
+        this.MaxBench = bench;
     }
 
-    public int getMaxDeadlift() {
-        return maxDeadlift;
+    public long getMaxSquat() {
+        return MaxSquat;
     }
-    public void setMaxDeadlift(int deadlift) {
-        this.maxDeadlift = deadlift;
-    }
-
-    public int getMaxOverheadPress() {
-        return maxBench;
-    }
-    public void setMaxOverheadPress(int overheadPress) {
-        this.maxOverheadPress = overheadPress;
+    public void setMaxSquat(long squat) {
+        this.MaxSquat = squat;
     }
 
-    public int getMaxBarbellRow() {
-        return maxBarbellRow;
+    public long getMaxDeadlift() {
+        return MaxDeadlift;
     }
-    public void setMaxBarbellRow(int barbellRow) {
-        this.maxBarbellRow = barbellRow;
+    public void setMaxDeadlift(long deadlift) {
+        this.MaxDeadlift = deadlift;
+    }
+
+    public long getMaxOverheadPress() {
+        return MaxBench;
+    }
+    public void setMaxOverheadPress(long overheadPress) {
+        this.MaxOverheadPress = overheadPress;
+    }
+
+    public long getMaxBarbellRow() {
+        return MaxBarbellRow;
+    }
+    public void setMaxBarbellRow(long barbellRow) {
+        this.MaxBarbellRow = barbellRow;
+    }
+
+    public String getWeek() {
+        return Week;
+    }
+    public void setWeek(String week) {
+        this.Week = week;
+    }
+
+    public String getDay() {
+        return Day;
+    }
+    public void setDay(String day) {
+        this.Day = day;
     }
 }

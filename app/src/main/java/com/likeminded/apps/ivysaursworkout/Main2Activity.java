@@ -3,15 +3,21 @@ package com.likeminded.apps.ivysaursworkout;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class Main2Activity extends AppCompatActivity {
 
-    private TextView textView_bench_A;
-    private String bench;
+    private TextView TextView_bench_A;
 
-    private final double benchIncrement = 10/3;
+    boolean RoundToNearestFive = true;
+
+    //private String bench;
+
+    private long CurrentBench, CurrentSquat, CurrentDeadlift, CurrentOverheadPress, CurrentBarbellRow;
+
+    private final long BenchAndRowIncrement = 10/3, SquatAndDeadliftIncrement = 15/3, OverheadPressIncrement = 5/3;
 
     public enum Week {
         A, B
@@ -27,36 +33,51 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
 
         Intent intentMainActivity = getIntent();
-        bench = intentMainActivity.getStringExtra(MainActivity.MAX_BENCH);
 
-        setWorkOut(Week.A, Day.DAY1);
+        //Get the item from the intent sent from the MainActivity
+        //bench = intentMainActivity.getStringExtra(MainActivity.MAX_BENCH);
+
+        //TODO: Does this use the same DB created in MainActivity?
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(Main2Activity.this);
+        ArrayList<UserModel> users = sqLiteHelper.getAllUsers();
+
+        UserModel user = users.get(0);
+
+        setWorkOut(user);
     }
 
-    public void setWorkOut(Week week, Day day)
+    public void setWorkOut(UserModel user)
     {
-        int bench_max =0;
+        //int bench_max = 0;
 
-        try {
-            bench_max = Integer.parseInt(bench);
-        } catch(NumberFormatException nfe) {
-            System.out.println("Could not parse " + nfe);
-        }
+        Week week = Week.valueOf(user.getWeek());
+        Day day = Day.valueOf(user.getDay());
 
-        String bench_text = setBench(bench_max, week, day);
+        //This is for grabbing the string sent from the Intent from MainActivity
+//        try {
+//            bench_max = Integer.parseInt(bench);
+//        } catch(NumberFormatException nfe) {
+//            System.out.println("Could not parse " + nfe);
+//        }
 
-        textView_bench_A = (TextView) findViewById(R.id.textView_bench_A);
-        textView_bench_A.setText(bench_text);
+        String bench_text = setBench(user.getMaxBench(), week, day);
+
+        TextView_bench_A = (TextView) findViewById(R.id.textView_bench_A);
+        TextView_bench_A.setText(bench_text);
     }
 
-    public String setBench(int prevWeight, Week week, Day day)
+    public String setBench(long prevWeight, Week week, Day day)
     {
         String reps = "";
         String weight = "";
 
-        double nextWeight = prevWeight + benchIncrement;
+        long nextWeight = prevWeight + BenchAndRowIncrement;
 
         //round to nearest 5
-        nextWeight = 5*(Math.round(nextWeight/5));
+        if(RoundToNearestFive)
+        {
+            nextWeight = 5 * (Math.round(nextWeight / 5));
+        }
 
         switch (week) {
             case A:
@@ -87,7 +108,7 @@ public class Main2Activity extends AppCompatActivity {
                 break;
         }
 
-        weight = Double.toString(nextWeight);
+        weight = Long.toString(nextWeight);
 
         return weight + " " + reps;
     }

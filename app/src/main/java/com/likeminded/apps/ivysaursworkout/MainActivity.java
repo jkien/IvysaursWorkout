@@ -12,9 +12,9 @@ public class MainActivity extends AppCompatActivity {
     public Button nextBtn;
     public final static String MAX_BENCH = "com.likeminded.apps.ivysaursworkout.MAX_BENCH";
     public final static String MAX_SQUAT = "com.likeminded.apps.ivysaursworkout.MAX_SQUAT";
-    public final static String MAX_OVERHEADPRESS = "com.likeminded.apps.ivysaursworkout.MAX_OVERHEADPRESS";
     public final static String MAX_DEADLIFT = "com.likeminded.apps.ivysaursworkout.MAX_DEADLIFT";
-    public final static String MAX_BARBELLROWS = "com.likeminded.apps.ivysaursworkout.MAX_BARBELLROWS";
+    public final static String MAX_OVERHEADPRESS = "com.likeminded.apps.ivysaursworkout.MAX_OVERHEADPRESS";
+    public final static String MAX_BARBELLROW = "com.likeminded.apps.ivysaursworkout.MAX_BARBELLROW";
 
 
 
@@ -27,9 +27,28 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent submitMax = new Intent(MainActivity.this, Main2Activity.class);
+
+                //TODO: Consider a NumberPicker instead of EditText?
                 EditText editText_bench = (EditText) findViewById(R.id.bench_max);
-                String bench = editText_bench.getText().toString();
-                submitMax.putExtra(MAX_BENCH, bench);
+                EditText editText_squat = (EditText) findViewById(R.id.squat_max);
+                EditText editText_deadlift = (EditText) findViewById(R.id.deadlift_max);
+                EditText editText_overheadPress = (EditText) findViewById(R.id.overhead_press_max);
+                EditText editText_barbellRow = (EditText) findViewById(R.id.barbell_row_max);
+
+                //send value with intent to next activity
+                //String bench = editText_bench.getText().toString();
+                //submitMax.putExtra(MAX_BENCH, bench);
+
+                //Store max values in DB
+                SQLiteHelper sqLiteHelper = new SQLiteHelper(MainActivity.this);
+                long bench = Integer.parseInt(editText_bench.getText().toString());
+                long squat = Integer.parseInt(editText_squat.getText().toString());
+                long deadlift = Integer.parseInt(editText_deadlift.getText().toString());
+                long overheadPress = Integer.parseInt(editText_overheadPress.getText().toString());
+                long barbellRow = Integer.parseInt(editText_barbellRow.getText().toString());
+
+                sqLiteHelper.insertUser(bench, squat, deadlift, overheadPress, barbellRow, "A", "DAY1");
+
                 startActivity(submitMax);
             }
         });

@@ -2,8 +2,11 @@ package com.likeminded.apps.ivysaursworkout;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 public class SQLiteHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
@@ -20,16 +23,21 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_NAME_maxDeadlift = "maxDeadlift";
     public static final String COLUMN_NAME_maxOverheadPress = "maxOverheadPress";
     public static final String COLUMN_NAME_maxBarbellRow = "maxBarbellRow";
+    public static final String COLUMN_NAME_currentWeek = "currentWeek";
+    public static final String COLUMN_NAME_currentDay = "currentDay";
 
     private SQLiteDatabase db;
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_USERS + " ( " + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_NAME_maxBench + " INTEGER" +  ", "
-                + COLUMN_NAME_maxSquat + " INTEGER" +  ", "
-                + COLUMN_NAME_maxDeadlift + " INTEGER" +  ", "
-                + COLUMN_NAME_maxOverheadPress + " INTEGER" +  ", "
-                + COLUMN_NAME_maxBarbellRow + " INTEGER);");
+        db.execSQL("create table " + TABLE_USERS + " ( " + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                COLUMN_NAME_maxBench + " REAL" +  ", " +
+                COLUMN_NAME_maxSquat + " REAL" +  ", " +
+                COLUMN_NAME_maxDeadlift + " REAL" +  ", " +
+                COLUMN_NAME_maxOverheadPress + " REAL" +  ", "  +
+                COLUMN_NAME_maxBarbellRow + " REAL" + ", " +
+                COLUMN_NAME_currentWeek + " TEXT" + ", " +
+                COLUMN_NAME_currentDay + " TEXT);");
     }
 
     @Override
@@ -38,7 +46,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertUser(int bench, int squat, int deadlift, int overheadPress, int barbellRow)
+    public boolean insertUser(long bench, long squat, long deadlift, long overheadPress, long barbellRow, String week, String day)
     {
         db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -47,6 +55,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_NAME_maxDeadlift, deadlift);
         contentValues.put(COLUMN_NAME_maxOverheadPress, overheadPress);
         contentValues.put(COLUMN_NAME_maxBarbellRow, barbellRow);
+        contentValues.put(COLUMN_NAME_currentWeek, week);
+        contentValues.put(COLUMN_NAME_currentDay, day);
         long result = db.insert(TABLE_USERS, null, contentValues);
 
         db.close();
@@ -65,6 +75,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_NAME_maxDeadlift, user.getMaxDeadlift());
         contentValues.put(COLUMN_NAME_maxOverheadPress, user.getMaxOverheadPress());
         contentValues.put(COLUMN_NAME_maxBarbellRow, user.getMaxBarbellRow());
+        contentValues.put(COLUMN_NAME_currentWeek, user.getWeek());
+        contentValues.put(COLUMN_NAME_currentDay, user.getDay());
         db.update(TABLE_USERS, contentValues, COLUMN_ID + " = ?", new String[]{user.getID()});
         db.close();
     }
@@ -73,5 +85,56 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db = this.getReadableDatabase();
         db.delete(TABLE_USERS, COLUMN_ID + " = ?", new String[]{user.getID()});
         db.close();
+    }
+
+    public ArrayList<UserModel> getAllUsers() {
+        db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_USERS, null, null, null, null, null, null);
+        ArrayList<UserModel> users = new ArrayList<UserModel>();
+        UserModel userModel;
+        if (cursor.getCount() > 0) {
+            for (int i = 0; i < cursor.getCount(); i++) {
+                cursor.moveToNext();
+                userModel = new UserModel();
+                userModel.setID(cursor.getString(0));
+                userModel.setMaxBench(cursor.getLong(1));
+                userModel.setMaxSquat(cursor.getLong(2));
+                userModel.setMaxDeadlift(cursor.getLong(3));
+                userModel.setMaxOverheadPress(cursor.getLong(4));
+                userModel.setMaxBarbellRow(cursor.getLong(5));
+                userModel.setWeek(cursor.getString(6));
+                userModel.setDay(cursor.getString(7));
+                users.add(userModel);
+            }
+        }
+        cursor.close();
+        db.close();
+        return users;
+    }
+
+    //another way to get all users for learning purposes using rawQuery vs query
+    public ArrayList<UserModel> getAllUsersAlternate() {
+        db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_USERS, null);
+        ArrayList<UserModel> users = new ArrayList<UserModel>();
+        UserModel userModel;
+        if (cursor.getCount() > 0) {
+            for (int i = 0; i < cursor.getCount(); i++) {
+                cursor.moveToNext();
+                userModel = new UserModel();
+                userModel.setID(cursor.getString(0));
+                userModel.setMaxBench(cursor.getLong(1));
+                userModel.setMaxSquat(cursor.getLong(2));
+                userModel.setMaxDeadlift(cursor.getLong(3));
+                userModel.setMaxOverheadPress(cursor.getLong(4));
+                userModel.setMaxBarbellRow(cursor.getLong(5));
+                userModel.setWeek(cursor.getString(6));
+                userModel.setDay(cursor.getString(7));
+                users.add(userModel);
+            }
+        }
+        cursor.close();
+        db.close();
+        return users;
     }
 }
