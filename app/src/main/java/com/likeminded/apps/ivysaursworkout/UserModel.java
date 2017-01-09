@@ -65,7 +65,7 @@ public class UserModel {
         this.Week = week;
     }
     private void incrementWeek() {
-        if(Week == "A")
+        if(Week.equals("A"))
         {
             this.Week = "B";
         }
@@ -82,11 +82,11 @@ public class UserModel {
         this.Day = day;
     }
     public void incrementDay() {
-        if(Day == "DAY1")
+        if(Day.equals("DAY1"))
         {
             this.Day = "DAY2";
         }
-        else if(Day == "DAY2")
+        else if(Day.equals("DAY2"))
         {
             this.Day = "DAY3";
         }

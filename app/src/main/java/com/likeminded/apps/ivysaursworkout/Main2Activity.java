@@ -66,8 +66,15 @@ public class Main2Activity extends AppCompatActivity {
         SQLiteHelper sqLiteHelper = new SQLiteHelper(Main2Activity.this);
         UserModel user = sqLiteHelper.getUserByUsername(username);
 
+        NewBench = user.getMaxBench();
+        NewSquat = user.getMaxSquat();
+        NewDeadlift = user.getMaxDeadlift();
+        NewOverheadPress = user.getMaxOverheadPress();
+        NewBarbellRow = user.getMaxBarbellRow();
+
         //increment workout day to set the next workout
         user.incrementDay();
+
         setWorkOut(user);
 
         user.setMaxBench(NewBench);

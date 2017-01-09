@@ -101,10 +101,18 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("Exception: " + ex.getMessage());
         }
 
+        //TODO: temp until implement account management
+        username = "j";
+
         if(username != null && username != "")
         {
             SQLiteHelper sqLiteHelper = new SQLiteHelper(MainActivity.this);
             UserModel user = sqLiteHelper.getUserByUsername(username);
+
+            if (user == null)
+            {
+                return;
+            }
 
             EditText editText_username = (EditText) findViewById(R.id.username);
             EditText editText_bench = (EditText) findViewById(R.id.bench_max);
