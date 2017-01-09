@@ -6,7 +6,7 @@ package com.likeminded.apps.ivysaursworkout;
 
 public class UserModel {
 
-    private String ID, Week, Day;
+    private String Username, ID, Week, Day;
     private long MaxBench, MaxSquat, MaxDeadlift, MaxOverheadPress, MaxBarbellRow;
 
     public String getID() {
@@ -14,6 +14,13 @@ public class UserModel {
     }
     public void setID(String ID) {
         this.ID = ID;
+    }
+
+    public String getUsername() {
+        return Username;
+    }
+    public void setUsername(String username) {
+        this.Username = username;
     }
 
     public long getMaxBench() {
@@ -38,7 +45,7 @@ public class UserModel {
     }
 
     public long getMaxOverheadPress() {
-        return MaxBench;
+        return MaxOverheadPress;
     }
     public void setMaxOverheadPress(long overheadPress) {
         this.MaxOverheadPress = overheadPress;
@@ -57,6 +64,16 @@ public class UserModel {
     public void setWeek(String week) {
         this.Week = week;
     }
+    private void incrementWeek() {
+        if(Week == "A")
+        {
+            this.Week = "B";
+        }
+        else
+        {
+            this.Week = "A";
+        }
+    }
 
     public String getDay() {
         return Day;
@@ -64,4 +81,20 @@ public class UserModel {
     public void setDay(String day) {
         this.Day = day;
     }
+    public void incrementDay() {
+        if(Day == "DAY1")
+        {
+            this.Day = "DAY2";
+        }
+        else if(Day == "DAY2")
+        {
+            this.Day = "DAY3";
+        }
+        else
+        {
+            this.Day = "DAY1";
+            incrementWeek();
+        }
+    }
+
 }

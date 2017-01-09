@@ -12,6 +12,13 @@
     tools:context="com.likeminded.apps.ivysaursworkout.MainActivity">
 
     <EditText
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter Username"
+        android:inputType="text" />
+
+    <EditText
         android:id="@+id/bench_max"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

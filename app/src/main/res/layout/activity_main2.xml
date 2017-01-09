@@ -18,14 +18,45 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:text="Week A"
+        android:text="Week X"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_week" />
+
+    <TextView
+        android:text="Day X"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_day" />
 
     <TextView
         android:text="X Bench"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView_bench_A" />
+        android:id="@+id/textView_exercise_1" />
+
+    <TextView
+        android:text="X Squats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_exercise_2" />
+
+    <TextView
+        android:text="X Overhead Press"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_exercise_3" />
+
+    <TextView
+        android:text="X Pull Ups"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_exercise_4" />
+
+    <Button
+        android:text="Done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/done_btn" />
 
 </LinearLayout>
