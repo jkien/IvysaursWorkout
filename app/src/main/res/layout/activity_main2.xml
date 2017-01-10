@@ -29,25 +29,25 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView_day" />
 
-    <TextView
+    <Button
         android:text="X Bench"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView_exercise_1" />
 
-    <TextView
+    <Button
         android:text="X Squats"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView_exercise_2" />
 
-    <TextView
+    <Button
         android:text="X Overhead Press"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView_exercise_3" />
 
-    <TextView
+    <Button
         android:text="X Pull Ups"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

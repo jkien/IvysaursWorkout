@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     public final static String MAX_BARBELLROW = "com.likeminded.apps.ivysaursworkout.MAX_BARBELLROW";
 
 
+    public final static String USER1 = "User1";
+
 
     public void init()
     {
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent submitMax = new Intent(MainActivity.this, Main2Activity.class);
 
                 //TODO: Consider a NumberPicker instead of EditText?
-                EditText editText_username = (EditText) findViewById(R.id.username);
+                //EditText editText_username = (EditText) findViewById(R.id.username);
                 EditText editText_bench = (EditText) findViewById(R.id.bench_max);
                 EditText editText_squat = (EditText) findViewById(R.id.squat_max);
                 EditText editText_deadlift = (EditText) findViewById(R.id.deadlift_max);
@@ -43,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
                 //Store max values in DB
                 SQLiteHelper sqLiteHelper = new SQLiteHelper(MainActivity.this);
-                String username = editText_username.getText().toString();
+                //String username = editText_username.getText().toString();
 
-                submitMax.putExtra(USERNAME, username);
+                //submitMax.putExtra(USERNAME, USER1);
 
                 long bench = Integer.parseInt(editText_bench.getText().toString());
                 long squat = Integer.parseInt(editText_squat.getText().toString());
@@ -53,16 +55,16 @@ public class MainActivity extends AppCompatActivity {
                 long overheadPress = Integer.parseInt(editText_overheadPress.getText().toString());
                 long barbellRow = Integer.parseInt(editText_barbellRow.getText().toString());
 
-                UserModel currentUser = sqLiteHelper.getUserByUsername(username);
+                UserModel currentUser = sqLiteHelper.getUserByUsername(USER1);
 
                 if(currentUser == null)
                 {
                     //Set the week to B and the last day of 3 so that when we calculate the next workout it starts on A and Day1
-                    sqLiteHelper.insertUser(username, bench, squat, deadlift, overheadPress, barbellRow, "B", "DAY3");
+                    sqLiteHelper.insertUser(USER1, bench, squat, deadlift, overheadPress, barbellRow, "B", "DAY3");
                 }
                 else
                 {
-                    currentUser.setUsername(username);
+                    currentUser.setUsername(USER1);
                     currentUser.setMaxBench(bench);
                     currentUser.setMaxSquat(squat);
                     currentUser.setMaxDeadlift(deadlift);
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void setValuesFromDB()
     {
-        String username = "";
+        /*String username = "";
 
         try {
             Intent intentMain2Activity = getIntent();
@@ -99,29 +101,26 @@ public class MainActivity extends AppCompatActivity {
             username = intentMain2Activity.getStringExtra(MainActivity.USERNAME);
         } catch(Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
-        }
+        }*/
 
-        //TODO: temp until implement account management
-        username = "j";
-
-        if(username != null && username != "")
+        if(USER1 != null && USER1 != "")
         {
             SQLiteHelper sqLiteHelper = new SQLiteHelper(MainActivity.this);
-            UserModel user = sqLiteHelper.getUserByUsername(username);
+            UserModel user = sqLiteHelper.getUserByUsername(USER1);
 
             if (user == null)
             {
                 return;
             }
 
-            EditText editText_username = (EditText) findViewById(R.id.username);
+            //EditText editText_username = (EditText) findViewById(R.id.username);
             EditText editText_bench = (EditText) findViewById(R.id.bench_max);
             EditText editText_squat = (EditText) findViewById(R.id.squat_max);
             EditText editText_deadlift = (EditText) findViewById(R.id.deadlift_max);
             EditText editText_overheadPress = (EditText) findViewById(R.id.overhead_press_max);
             EditText editText_barbellRow = (EditText) findViewById(R.id.barbell_row_max);
 
-            editText_username.setText(user.getUsername());
+            //editText_username.setText(user.getUsername());
             editText_bench.setText(Long.toString(user.getMaxBench()));
             editText_squat.setText(Long.toString(user.getMaxSquat()));
             editText_deadlift.setText(Long.toString(user.getMaxDeadlift()));
